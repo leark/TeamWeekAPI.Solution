@@ -14,7 +14,7 @@ namespace TeamWeekAPI.Models
     public DbSet<Player> Players { get; set; }
     public DbSet<Team> Teams { get; set; }
     public DbSet<AnimalTeam> AnimalTeams { get; set; }
-
+    public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
       base.OnModelCreating(builder);
