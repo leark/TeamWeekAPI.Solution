@@ -2,13 +2,16 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using TeamWeekAPI.Models;
 using System.Linq;
 
 namespace TeamWeekAPI.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/[controller]")] // api/todo
   [ApiController]
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   public class AnimalsController : ControllerBase
   {
     private readonly TeamWeekAPIContext _db;

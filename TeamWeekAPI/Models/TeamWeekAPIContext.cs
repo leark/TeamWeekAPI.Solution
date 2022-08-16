@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace TeamWeekAPI.Models
 {
-  public class TeamWeekAPIContext : DbContext
+  public class TeamWeekAPIContext : IdentityDbContext
   {
     public TeamWeekAPIContext(DbContextOptions<TeamWeekAPIContext> options)
         : base(options)
@@ -16,6 +17,8 @@ namespace TeamWeekAPI.Models
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+      base.OnModelCreating(builder);
+
       builder.Entity<Animal>()
           .HasData(
               new Animal { AnimalId = 1, Name = "George", HP = 3, Attack = 5 },
