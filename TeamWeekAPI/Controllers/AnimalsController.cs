@@ -9,7 +9,8 @@ using System.Linq;
 
 namespace TeamWeekAPI.Controllers
 {
-  [Route("api/[controller]")] // api/todo
+  [Route("api/[controller]")] // backwards compat
+  [Route("api/v{version:apiVersion}/[controller]")] // api/todo
   [ApiController]
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   public class AnimalsController : ControllerBase

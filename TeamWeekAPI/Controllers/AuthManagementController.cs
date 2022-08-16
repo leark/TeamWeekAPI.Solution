@@ -19,6 +19,8 @@ namespace TeamWeekAPI.Controllers
 {
   [Route("api/[controller]")] // api/authManagement
   [ApiController]
+  [ApiExplorerSettings(IgnoreApi = true)]
+
   public class AuthManagementController : ControllerBase
   {
     private readonly TokenValidationParameters _tokenValidationParameters;
@@ -217,7 +219,7 @@ namespace TeamWeekAPI.Controllers
       });
     }
 
-    public string RandomString(int length)
+    internal string RandomString(int length)
     {
       var random = new Random();
       var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -311,7 +313,7 @@ namespace TeamWeekAPI.Controllers
         {
           return new AuthResult()
           {
-            Errors = new List<string>() { "the token doenst mateched the saved token" },
+            Errors = new List<string>() { "the token doesn't match the saved token" },
             Success = false
           };
         }

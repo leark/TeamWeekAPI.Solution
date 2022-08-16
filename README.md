@@ -2,12 +2,14 @@
 
 #### By _Seung Lee, Garrett Hays, Alex Shevlin_
 
-#### _A API._
+#### _An API._
 
 ## Technologies Used
 
 * _C#/.NET_
 * _Entity Framework_
+* _Identity_
+* _JwtBearer_
 
 ## Description
 
