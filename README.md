@@ -54,15 +54,29 @@ _Requires console application such as Git Bash, Terminal, or PowerShell_
 
 ```json
 {
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning",
+      "System": "Information",
+      "Microsoft": "Information"
+    }
+  },
+  "AllowedHosts": "*",
   "ConnectionStrings": {
-      "DefaultConnection": "Server=localhost;Port=3306;database=teamweekapi;uid=root;pwd=[YOUR-PASSWORD-HERE]"
+    "DefaultConnection": "Server=localhost;Port=3306;database=teamweekapi;uid=root;pwd=[YOUR-PASSWORD-HERE];"
+  },
+  "JwtConfig": {
+    "Secret" : "[YOUR-SECRET-HERE]"
   }
 }
+
 ```
 
 7. Replace [YOUR-PASSWORD-HERE] with your MySQL password.
 
-8. Run the command
+8. Replace [YOUR-SECRET-HERE] with your random length 32 string.
+
+9. Run the command
 
     ```dotnet ef database update```
 
