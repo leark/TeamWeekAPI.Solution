@@ -43,9 +43,7 @@ namespace TeamWeekAPI
             options.AddDefaultPolicy(
                 policy =>
                 {
-                    policy.WithOrigins("http://example.com",
-                                        "http://www.contoso.com",
-                                        "https://localhost:5000");
+                    policy.WithOrigins("https://localhost:5000");
                 });
         });
 
