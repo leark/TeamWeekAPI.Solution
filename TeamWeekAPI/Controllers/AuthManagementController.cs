@@ -159,7 +159,7 @@ namespace TeamWeekAPI.Controllers
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         }),
-        Expires = DateTime.UtcNow.AddSeconds(300),
+        Expires = DateTime.UtcNow.AddSeconds(30),
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
       };
 
@@ -235,7 +235,9 @@ namespace TeamWeekAPI.Controllers
       {
         // This validation function will make sure that the token meets the validation parameters
         // and its an actual jwt token not just a random string
+        _tokenValidationParameters.ValidateLifetime = false;
         var principal = jwtTokenHandler.ValidateToken(tokenRequest.Token, _tokenValidationParameters, out var validatedToken);
+        _tokenValidationParameters.ValidateLifetime = true;
 
         // Now we need to check if the token has a valid security algorithm
         if (validatedToken is JwtSecurityToken jwtSecurityToken)
