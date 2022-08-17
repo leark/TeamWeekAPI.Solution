@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamWeekAPI.Models;
 
@@ -10,9 +11,10 @@ using TeamWeekAPI.Models;
 namespace TeamWeekAPI.Migrations
 {
     [DbContext(typeof(TeamWeekAPIContext))]
-    partial class TeamWeekAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20220817170936_AnimalImage")]
+    partial class AnimalImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,7 +249,7 @@ namespace TeamWeekAPI.Migrations
                             Attack = 5,
                             HP = 3,
                             Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1008883732104626246/musclepikachu.png",
-                            Name = "Pikachad"
+                            Name = "George"
                         },
                         new
                         {
@@ -255,7 +257,7 @@ namespace TeamWeekAPI.Migrations
                             Attack = 3,
                             HP = 6,
                             Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1008930285691351131/MonionNoBgZoom.png",
-                            Name = "Monion"
+                            Name = "Scott"
                         },
                         new
                         {
@@ -263,7 +265,7 @@ namespace TeamWeekAPI.Migrations
                             Attack = 3,
                             HP = 4,
                             Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1009168139780624395/chickenyoshi.png",
-                            Name = "Noshi"
+                            Name = "Michael"
                         },
                         new
                         {
@@ -279,39 +281,7 @@ namespace TeamWeekAPI.Migrations
                             Attack = 1,
                             HP = 13,
                             Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1009201332357439619/peterpigeon.png",
-                            Name = "Pigeon Pete"
-                        },
-                        new
-                        {
-                            AnimalId = 6,
-                            Attack = 4,
-                            HP = 2,
-                            Image = "https://cdn.discordapp.com/attachments/927592064949026866/1008876043827937350/unknown.png",
-                            Name = "Cheeso Dude"
-                        },
-                        new
-                        {
-                            AnimalId = 7,
-                            Attack = 5,
-                            HP = 4,
-                            Image = "https://cdn.discordapp.com/attachments/927592064949026866/1008873198881869885/73371860-F5C2-4494-AC67-B3EA6111A5D6.jpg",
-                            Name = "Cat With Sword"
-                        },
-                        new
-                        {
-                            AnimalId = 8,
-                            Attack = 3,
-                            HP = 3,
-                            Image = "https://cdn.discordapp.com/attachments/927592064949026866/1009231673625428058/unknown.png",
-                            Name = "Pepper Jackson"
-                        },
-                        new
-                        {
-                            AnimalId = 9,
-                            Attack = 1,
-                            HP = 5,
-                            Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1008892391442350141/monion.png",
-                            Name = "Happy Monion"
+                            Name = "Roger"
                         });
                 });
 
@@ -334,6 +304,38 @@ namespace TeamWeekAPI.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("AnimalTeams");
+
+                    b.HasData(
+                        new
+                        {
+                            AnimalTeamId = 1,
+                            AnimalId = 1,
+                            TeamId = 1
+                        },
+                        new
+                        {
+                            AnimalTeamId = 2,
+                            AnimalId = 2,
+                            TeamId = 2
+                        },
+                        new
+                        {
+                            AnimalTeamId = 3,
+                            AnimalId = 3,
+                            TeamId = 3
+                        },
+                        new
+                        {
+                            AnimalTeamId = 4,
+                            AnimalId = 4,
+                            TeamId = 4
+                        },
+                        new
+                        {
+                            AnimalTeamId = 5,
+                            AnimalId = 5,
+                            TeamId = 5
+                        });
                 });
 
             modelBuilder.Entity("TeamWeekAPI.Models.Player", b =>
@@ -349,6 +351,33 @@ namespace TeamWeekAPI.Migrations
                     b.HasKey("PlayerId");
 
                     b.ToTable("Players");
+
+                    b.HasData(
+                        new
+                        {
+                            PlayerId = 1,
+                            Name = "Myrtle"
+                        },
+                        new
+                        {
+                            PlayerId = 2,
+                            Name = "Darrel"
+                        },
+                        new
+                        {
+                            PlayerId = 3,
+                            Name = "Rita"
+                        },
+                        new
+                        {
+                            PlayerId = 4,
+                            Name = "Salvador"
+                        },
+                        new
+                        {
+                            PlayerId = 5,
+                            Name = "Virgil"
+                        });
                 });
 
             modelBuilder.Entity("TeamWeekAPI.Models.RefreshToken", b =>
@@ -409,6 +438,48 @@ namespace TeamWeekAPI.Migrations
                     b.HasIndex("PlayerId");
 
                     b.ToTable("Teams");
+
+                    b.HasData(
+                        new
+                        {
+                            TeamId = 1,
+                            Losses = 0,
+                            Name = "Militant Commandos",
+                            PlayerId = 1,
+                            Wins = 0
+                        },
+                        new
+                        {
+                            TeamId = 2,
+                            Losses = 0,
+                            Name = "Flash Rockets",
+                            PlayerId = 2,
+                            Wins = 0
+                        },
+                        new
+                        {
+                            TeamId = 3,
+                            Losses = 0,
+                            Name = "Silent Mutants",
+                            PlayerId = 3,
+                            Wins = 0
+                        },
+                        new
+                        {
+                            TeamId = 4,
+                            Losses = 0,
+                            Name = "Nunchuk Killers",
+                            PlayerId = 4,
+                            Wins = 0
+                        },
+                        new
+                        {
+                            TeamId = 5,
+                            Losses = 0,
+                            Name = "Alpha Blasters",
+                            PlayerId = 5,
+                            Wins = 0
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

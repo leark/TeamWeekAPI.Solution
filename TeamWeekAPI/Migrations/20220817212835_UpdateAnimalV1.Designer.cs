@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamWeekAPI.Models;
 
@@ -10,9 +11,10 @@ using TeamWeekAPI.Models;
 namespace TeamWeekAPI.Migrations
 {
     [DbContext(typeof(TeamWeekAPIContext))]
-    partial class TeamWeekAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20220817212835_UpdateAnimalV1")]
+    partial class UpdateAnimalV1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -304,14 +306,6 @@ namespace TeamWeekAPI.Migrations
                             HP = 3,
                             Image = "https://cdn.discordapp.com/attachments/927592064949026866/1009231673625428058/unknown.png",
                             Name = "Pepper Jackson"
-                        },
-                        new
-                        {
-                            AnimalId = 9,
-                            Attack = 1,
-                            HP = 5,
-                            Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1008892391442350141/monion.png",
-                            Name = "Happy Monion"
                         });
                 });
 
