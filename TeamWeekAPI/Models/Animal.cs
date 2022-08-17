@@ -6,6 +6,8 @@ namespace TeamWeekAPI.Models
   {
     public int AnimalId { get; set; }
     [Required]
+    public string Image { get; set; }
+    [Required]
     [StringLength(20)]
     public string Name { get; set; }
     [Required]

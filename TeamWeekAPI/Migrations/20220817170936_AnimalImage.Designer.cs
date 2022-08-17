@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamWeekAPI.Models;
 
@@ -10,9 +11,10 @@ using TeamWeekAPI.Models;
 namespace TeamWeekAPI.Migrations
 {
     [DbContext(typeof(TeamWeekAPIContext))]
-    partial class TeamWeekAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20220817170936_AnimalImage")]
+    partial class AnimalImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,7 +249,7 @@ namespace TeamWeekAPI.Migrations
                             Attack = 5,
                             HP = 3,
                             Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1008883732104626246/musclepikachu.png",
-                            Name = "Pikachad"
+                            Name = "George"
                         },
                         new
                         {
@@ -255,7 +257,7 @@ namespace TeamWeekAPI.Migrations
                             Attack = 3,
                             HP = 6,
                             Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1008930285691351131/MonionNoBgZoom.png",
-                            Name = "Monion"
+                            Name = "Scott"
                         },
                         new
                         {
@@ -263,7 +265,7 @@ namespace TeamWeekAPI.Migrations
                             Attack = 3,
                             HP = 4,
                             Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1009168139780624395/chickenyoshi.png",
-                            Name = "Noshi"
+                            Name = "Michael"
                         },
                         new
                         {
@@ -279,7 +281,7 @@ namespace TeamWeekAPI.Migrations
                             Attack = 1,
                             HP = 13,
                             Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1009201332357439619/peterpigeon.png",
-                            Name = "Pigeon Pete"
+                            Name = "Roger"
                         });
                 });
 
