@@ -24,6 +24,7 @@ namespace TeamWeekAPI.Controllers
 
     // GET api/animals
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IEnumerable<Animal>>> Get(string name)
     {
       var query = _db.Animals.AsQueryable();
@@ -47,6 +48,7 @@ namespace TeamWeekAPI.Controllers
     }
     // GET: api/Animals/5
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public async Task<ActionResult<Animal>> GetAnimal(int id)
     {
       var animal = await _db.Animals.FindAsync(id);
