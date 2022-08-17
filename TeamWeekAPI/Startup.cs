@@ -22,6 +22,8 @@ namespace TeamWeekAPI
 {
   public class Startup
   {
+    readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
@@ -35,6 +37,19 @@ namespace TeamWeekAPI
       services.AddDbContext<TeamWeekAPIContext>(opt =>
           opt.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
       services.AddApiVersioningConfigured();
+
+      services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(
+                policy =>
+                {
+                    policy.WithOrigins("http://example.com",
+                                        "http://www.contoso.com",
+                                        "https://localhost:5000");
+                });
+        });
+
+      services.AddControllers();
 
       services.AddSwaggerGen(c =>
       {
@@ -125,7 +140,7 @@ namespace TeamWeekAPI
       // app.UseHttpsRedirection();
 
       app.UseRouting();
-
+      app.UseCors();
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
