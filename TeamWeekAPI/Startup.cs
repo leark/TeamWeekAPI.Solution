@@ -43,7 +43,7 @@ namespace TeamWeekAPI
             options.AddDefaultPolicy(
                 policy =>
                 {
-                    policy.WithOrigins("https://localhost:5000");
+                    policy.WithOrigins("https://slagapi.azurewebsites.net");
                 });
         });
 
