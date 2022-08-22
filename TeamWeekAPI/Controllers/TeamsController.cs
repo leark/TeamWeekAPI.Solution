@@ -9,11 +9,7 @@ using TeamWeekAPI.Models;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
-
-
-
-
-
+using System;
 namespace TeamWeekAPI.Controllers
 {
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -23,7 +19,7 @@ namespace TeamWeekAPI.Controllers
   {
     private readonly TeamWeekAPIContext _db;
 
-    public TeamsController( TeamWeekAPIContext db) 
+    public TeamsController(TeamWeekAPIContext db)
     {
       _db = db;
     }
@@ -115,9 +111,85 @@ namespace TeamWeekAPI.Controllers
       return NoContent();
     }
 
+    [HttpGet("battle/{id}")]
+    [AllowAnonymous]
+    public IActionResult BattleTeam(int id)
+    {
+      if (TeamExists(id))
+      {
+        var rand = new Random();
+        List<Team> teams = _db.Teams.ToList();
+        Team team = teams.FirstOrDefault(t => t.TeamId == id);
+        int numTeams = teams.Count;
+        int randTeam = rand.Next(numTeams);
+        Team enemyTeam = teams[randTeam];
+        if (numTeams > 1)
+        {
+          while (enemyTeam.TeamId == id)
+          {
+            randTeam = rand.Next(numTeams);
+            enemyTeam = teams[randTeam];
+          }
+
+          string result = Battle(team, enemyTeam);
+          // return winning team & losing team comp
+          dynamic json = new
+          {
+            outcome = result,
+            team1 = team,
+            team2 = enemyTeam
+          };
+          return Ok(json);
+        }
+        return NotFound();
+      }
+      else
+      {
+        return NotFound();
+      }
+    }
+
     private bool TeamExists(int id)
     {
       return _db.Teams.Any(e => e.TeamId == id);
+    }
+
+    private string Battle(Team team, Team enemyTeam)
+    {
+      List<Animal> animals = _db.Animals.FromSqlRaw($"SELECT a.AnimalId, a.Image, a.Name, a.HP, a.Attack FROM animals a JOIN animalteams ateams ON ateams.AnimalId = a.AnimalId AND ateams.TeamId = {team.TeamId};").ToList();
+      Stack<Animal> t1 = new Stack<Animal>(animals);
+
+      List<Animal> enemyAnimals = _db.Animals.FromSqlRaw($"SELECT a.AnimalId, a.Image, a.Name, a.HP, a.Attack FROM animals a JOIN animalteams ateams ON ateams.AnimalId = a.AnimalId AND ateams.TeamId = {enemyTeam.TeamId};").ToList();
+      Stack<Animal> t2 = new Stack<Animal>(enemyAnimals);
+
+      Animal t1a = new Animal();
+      Animal t2a = new Animal();
+      while (t1.TryPeek(out t1a) && t2.TryPeek(out t2a))
+      {
+        t1a.HP -= t2a.Attack;
+        t2a.HP -= t1a.Attack;
+
+        if (t1a.HP <= 0)
+        {
+          t1.Pop();
+        }
+        if (t2a.HP <= 0)
+        {
+          t2.Pop();
+        }
+      }
+      if (t1a == null && t2a == null)
+      {
+        return "tie";
+      }
+      else if (t2a == null)
+      {
+        return "1";
+      }
+      else
+      {
+        return "2";
+      }
     }
   }
 }
