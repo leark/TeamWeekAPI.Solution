@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using TeamWeekAPI.Models;
 using System.Linq;
+using System;
 
 namespace TeamWeekAPI.Controllers
 {
@@ -106,9 +107,37 @@ namespace TeamWeekAPI.Controllers
       return NoContent();
     }
 
+    [HttpGet("battle/{id}")]
+    public async Task<IActionResult> BattleTeam(int id)
+    {
+      var team = await _db.Teams.FindAsync(id);
+      var rand = new Random();
+      int numTeams = _db.Teams.Count<Team>();
+      int randTeam = 0;
+      if (numTeams > 1)
+      {
+        randTeam = rand.Next(numTeams) + 1;
+        while (randTeam == id)
+        {
+          randTeam = rand.Next(numTeams) + 1;
+        }
+        var enemyTeam = await _db.Teams.FindAsync(randTeam);
+        return Battle(team, enemyTeam);
+      }
+      else
+      {
+        return NotFound();
+      }
+    }
+
     private bool TeamExists(int id)
     {
       return _db.Teams.Any(e => e.TeamId == id);
+    }
+
+    private IActionResult Battle(Team team, Team enemyTeam)
+    {
+      return NotFound();
     }
   }
 }

@@ -95,7 +95,7 @@ Then run the following command in the console
 
   ``dotnet run``
 
-This program was built using _`Microsoft .NET SDK 5.0.401`_, and may not be compatible with other versions. Your milage may vary.
+This program was built using _`Microsoft .NET SDK 6.0.4`_, and may not be compatible with other versions. Your milage may vary.
 
 ## Known Bugs
 
