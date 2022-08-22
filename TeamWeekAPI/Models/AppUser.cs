@@ -2,9 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TeamWeekAPI.Models
 {
-  public class Player
+  public class AppUser
   {
-    public int PlayerId { get; set; }
+    public int AppUserId { get; set; }
     [Required]
     public string Name { get; set; }
   }

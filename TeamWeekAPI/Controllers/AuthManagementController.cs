@@ -159,7 +159,7 @@ namespace TeamWeekAPI.Controllers
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         }),
-        Expires = DateTime.UtcNow.AddSeconds(1000),
+        Expires = DateTime.UtcNow.AddSeconds(100000),
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
       };
 
