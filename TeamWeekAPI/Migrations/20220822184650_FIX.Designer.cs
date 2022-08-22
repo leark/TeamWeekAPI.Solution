@@ -11,7 +11,7 @@ using TeamWeekAPI.Models;
 namespace TeamWeekAPI.Migrations
 {
     [DbContext(typeof(TeamWeekAPIContext))]
-    [Migration("20220818220902_FIX")]
+    [Migration("20220822184650_FIX")]
     partial class FIX
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -241,6 +241,80 @@ namespace TeamWeekAPI.Migrations
                     b.HasKey("AnimalId");
 
                     b.ToTable("Animals");
+
+                    b.HasData(
+                        new
+                        {
+                            AnimalId = 1,
+                            Attack = 5,
+                            HP = 3,
+                            Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1008883732104626246/musclepikachu.png",
+                            Name = "Pikachad"
+                        },
+                        new
+                        {
+                            AnimalId = 2,
+                            Attack = 3,
+                            HP = 6,
+                            Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1008930285691351131/MonionNoBgZoom.png",
+                            Name = "Monion"
+                        },
+                        new
+                        {
+                            AnimalId = 3,
+                            Attack = 3,
+                            HP = 4,
+                            Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1009168139780624395/chickenyoshi.png",
+                            Name = "Noshi"
+                        },
+                        new
+                        {
+                            AnimalId = 4,
+                            Attack = 2,
+                            HP = 8,
+                            Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1009185539242606743/beerbellybear.png",
+                            Name = "Scooter"
+                        },
+                        new
+                        {
+                            AnimalId = 5,
+                            Attack = 1,
+                            HP = 13,
+                            Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1009201332357439619/peterpigeon.png",
+                            Name = "Pigeon Pete"
+                        },
+                        new
+                        {
+                            AnimalId = 6,
+                            Attack = 4,
+                            HP = 2,
+                            Image = "https://cdn.discordapp.com/attachments/927592064949026866/1008876043827937350/unknown.png",
+                            Name = "Cheeso Dude"
+                        },
+                        new
+                        {
+                            AnimalId = 7,
+                            Attack = 5,
+                            HP = 4,
+                            Image = "https://cdn.discordapp.com/attachments/927592064949026866/1008873198881869885/73371860-F5C2-4494-AC67-B3EA6111A5D6.jpg",
+                            Name = "Cat With Sword"
+                        },
+                        new
+                        {
+                            AnimalId = 8,
+                            Attack = 3,
+                            HP = 3,
+                            Image = "https://cdn.discordapp.com/attachments/927592064949026866/1009231673625428058/unknown.png",
+                            Name = "Pepper Jackson"
+                        },
+                        new
+                        {
+                            AnimalId = 9,
+                            Attack = 1,
+                            HP = 5,
+                            Image = "https://cdn.discordapp.com/attachments/1008839085172981781/1008892391442350141/monion.png",
+                            Name = "Happy Monion"
+                        });
                 });
 
             modelBuilder.Entity("TeamWeekAPI.Models.AnimalTeam", b =>
@@ -264,9 +338,9 @@ namespace TeamWeekAPI.Migrations
                     b.ToTable("AnimalTeams");
                 });
 
-            modelBuilder.Entity("TeamWeekAPI.Models.Player", b =>
+            modelBuilder.Entity("TeamWeekAPI.Models.AppUser", b =>
                 {
-                    b.Property<int>("PlayerId")
+                    b.Property<int>("AppUserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -274,9 +348,9 @@ namespace TeamWeekAPI.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("PlayerId");
+                    b.HasKey("AppUserId");
 
-                    b.ToTable("Players");
+                    b.ToTable("AppUsers");
                 });
 
             modelBuilder.Entity("TeamWeekAPI.Models.RefreshToken", b =>
@@ -323,18 +397,15 @@ namespace TeamWeekAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Wins")
                         .HasColumnType("int");
 
                     b.HasKey("TeamId");
-
-                    b.HasIndex("PlayerId");
 
                     b.ToTable("Teams");
                 });
@@ -416,17 +487,6 @@ namespace TeamWeekAPI.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TeamWeekAPI.Models.Team", b =>
-                {
-                    b.HasOne("TeamWeekAPI.Models.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Player");
                 });
 #pragma warning restore 612, 618
         }
