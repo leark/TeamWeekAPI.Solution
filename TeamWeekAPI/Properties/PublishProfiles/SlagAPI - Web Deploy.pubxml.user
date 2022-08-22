@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA/lKgRAorcEit1o+FsorLiwAAAAACAAAAAAAQZgAAAAEAACAAAADUR7u+AfaIQbzRcPwqtoYUPRH3lQWz1BhcO/6XNoNn3AAAAAAOgAAAAAIAACAAAADNdTtUG5fbP3fxT5Whfm+M7yQ3BBe2VmkwCxc0yTTUI4AAAABMfv/OSetrJPNuZtrYm/pqn0Ql1ffLEXKB6BL9VH619pwKp/dsaSMsx4WiAomzfFV7nVEk7DcZUrLHv07zNjG0lamTldosCD2yQrjA3Vlhq/KrTj5e+/T7rS8Y34KgVPlbbcoJ5lBR5kyKd9q//LlvH9EJs6zfIrSe7Pd7Q3LE9UAAAAB9FFJZEF2U3tiGtmcAyWFocpkfdd9OJTavGRrU6xS7k85WoHnJtAl7pATJPMwZ2tQbVoa2Zf5zeq7pXpE7i/LN</EncryptedPassword>
+    <History>True|2022-08-22T15:45:30.0122283Z;True|2022-08-22T08:37:10.1538019-07:00;True|2022-08-18T16:18:43.9321627-07:00;True|2022-08-18T16:07:44.1182313-07:00;True|2022-08-18T16:04:54.5611425-07:00;True|2022-08-18T16:00:55.6458048-07:00;False|2022-08-18T15:59:49.5092940-07:00;False|2022-08-18T15:56:31.3211637-07:00;True|2022-08-18T15:27:45.0118576-07:00;False|2022-08-18T15:27:01.1334301-07:00;False|2022-08-18T15:16:11.5016505-07:00;False|2022-08-18T15:15:55.5776690-07:00;False|2022-08-18T15:15:14.9591569-07:00;False|2022-08-18T15:09:31.8074869-07:00;False|2022-08-18T15:07:54.3968910-07:00;False|2022-08-18T15:07:05.0947882-07:00;False|2022-08-18T14:55:26.0470550-07:00;False|2022-08-18T14:47:06.7196529-07:00;False|2022-08-18T14:46:39.6261106-07:00;False|2022-08-18T14:29:18.1025619-07:00;False|2022-08-18T14:26:04.3504178-07:00;True|2022-08-18T13:34:14.3924629-07:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=slagdb.mysql.database.azure.com%3b Port=3306%3b Database=slag%3b Uid=slagadmin%40slagdb%3b Pwd=17dRjDZ2vgu4%25mKEqiu4!yt1%3b SslMode=Preferred%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>
