@@ -1,6 +1,6 @@
 # Seung Lee's Animal Gauntlet API
 
-#### By _Seung Lee, Garrett Hays, Alex Shevlin_
+#### By _Seung Lee, Garrett Hays, Alex Shevlin, Matt Herbert_
 
 #### _An API._
 
@@ -96,6 +96,63 @@ Then run the following command in the console
   ``dotnet run``
 
 This program was built using _`Microsoft .NET SDK 6.0.4`_, and may not be compatible with other versions. Your milage may vary.
+
+## API Documentation
+#### Available Requests
+
+#### Animals
+| HTTP   | EndPoints         | Auth  | Description                             |
+| ------ | ----------------- | ----- | --------------------------------------- |
+| GET    | /api/Animals      | Anon  | Gets all animals in the database.       |
+| POST   | /api/Animals      | Admin | Adds an animal to the database          |
+| GET    | /api/Animals/{id} | Anon  | Gets an animal with animalId = {id}     |
+| PUT    | /api/Animals/{id} | Admin | Updates an animal with animalId = {id}  |
+| DELETE | /api/Animals/{id} | Admin | Deletes an animal with animalId = {id}  |
+
+#### Teams
+| HTTP   | EndPoints       | Auth   | Description                        |
+| ------ | --------------- | ------ | ---------------------------------- |
+| GET    | /api/Teams      | Admin  | Gets all teams in the database.    |
+| POST   | /api/Teams      | Player | Adds a team to the database        |
+| GET    | /api/Teams/{id} | Player | Gets a team with teamId = {id}     |
+| PUT    | /api/Teams/{id} | Player | Updates a team with teamId = {id}  |
+| DELETE | /api/Teams/{id} | Player | Deletes a team with teamId = {id}  |
+
+#### AuthManagement
+| HTTP   | EndPoints         | Auth   | Description                        |
+| ------ | ----------------- | ------ | ---------------------------------- |
+| POST   | /api/Register     | Player | Registers a player.                |
+| POST   | /api/Login        | Player | Login as a player.                 |
+| POST   | /api/RefreshToken | Player | Get new Token and RefreshToken     |
+
+*Auth is minimum role required to use the endpoint
+#### Example Query
+```
+https://slagapi.azurewebsites.net/api/animals/1
+```
+Expected JSON Response
+```
+{
+  "animalId": 1,
+  "image": "https://cdn.discordapp.com/attachments/1008839085172981781/1008883732104626246/musclepikachu.png",
+  "name": "Pikachad",
+  "hp": 3,
+  "attack": 5
+}
+```
+#### Example POST Request
+```
+https://slagapi.azurewebsites.net/api/animals/
+```
+Sample Request
+```
+{
+  "image": "https://cdn.discordapp.com/attachments/1008839085172981781/1008930285691351131/MonionNoBgZoom.png",
+  "name": "Monion",
+  "hp": 6,
+  "attack": 3
+}
+```
 
 ## Known Bugs
 
