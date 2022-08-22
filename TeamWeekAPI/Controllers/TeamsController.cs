@@ -131,14 +131,8 @@ namespace TeamWeekAPI.Controllers
             enemyTeam = teams[randTeam];
           }
 
-          string result = Battle(team, enemyTeam);
+          Object json = Battle(team, enemyTeam);
           // return winning team & losing team comp
-          dynamic json = new
-          {
-            outcome = result,
-            team1 = team,
-            team2 = enemyTeam
-          };
           return Ok(json);
         }
         return NotFound();
@@ -154,7 +148,7 @@ namespace TeamWeekAPI.Controllers
       return _db.Teams.Any(e => e.TeamId == id);
     }
 
-    private string Battle(Team team, Team enemyTeam)
+    private Object Battle(Team team, Team enemyTeam)
     {
       List<Animal> animals = _db.Animals.FromSqlRaw($"SELECT a.AnimalId, a.Image, a.Name, a.HP, a.Attack FROM animals a JOIN animalteams ateams ON ateams.AnimalId = a.AnimalId AND ateams.TeamId = {team.TeamId};").ToList();
       Stack<Animal> t1 = new Stack<Animal>(animals);
@@ -178,18 +172,29 @@ namespace TeamWeekAPI.Controllers
           t2.Pop();
         }
       }
+
+      string result = "";
       if (t1a == null && t2a == null)
       {
-        return "tie";
+        result = "tie";
       }
       else if (t2a == null)
       {
-        return "1";
+        result = "1";
       }
       else
       {
-        return "2";
+        result = "2";
       }
+
+      Object json = new
+      {
+        outcome = result,
+        team1 = animals,
+        team2 = enemyAnimals
+      };
+
+      return json;
     }
   }
 }
