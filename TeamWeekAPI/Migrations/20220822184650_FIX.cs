@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TeamWeekAPI.Migrations
 {
-    public partial class Addingauth : Migration
+    public partial class FIX : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,8 @@ namespace TeamWeekAPI.Migrations
                 {
                     AnimalId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Image = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Name = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     HP = table.Column<int>(type: "int", nullable: false),
@@ -27,6 +29,21 @@ namespace TeamWeekAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Animals", x => x.AnimalId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AppUsers",
+                columns: table => new
+                {
+                    AppUserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUsers", x => x.AppUserId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -85,17 +102,21 @@ namespace TeamWeekAPI.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Players",
+                name: "Teams",
                 columns: table => new
                 {
-                    PlayerId = table.Column<int>(type: "int", nullable: false)
+                    TeamId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    UserId = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Wins = table.Column<int>(type: "int", nullable: false),
+                    Losses = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Players", x => x.PlayerId);
+                    table.PrimaryKey("PK_Teams", x => x.TeamId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -227,26 +248,30 @@ namespace TeamWeekAPI.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Teams",
+                name: "RefreshTokens",
                 columns: table => new
                 {
-                    TeamId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Wins = table.Column<int>(type: "int", nullable: false),
-                    Losses = table.Column<int>(type: "int", nullable: false),
-                    PlayerId = table.Column<int>(type: "int", nullable: false)
+                    Token = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    JwtId = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IsUsed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IsRevoked = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Teams", x => x.TeamId);
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Teams_Players_PlayerId",
-                        column: x => x.PlayerId,
-                        principalTable: "Players",
-                        principalColumn: "PlayerId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_RefreshTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -279,50 +304,18 @@ namespace TeamWeekAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "Animals",
-                columns: new[] { "AnimalId", "Attack", "HP", "Name" },
+                columns: new[] { "AnimalId", "Attack", "HP", "Image", "Name" },
                 values: new object[,]
                 {
-                    { 1, 5, 3, "George" },
-                    { 2, 3, 6, "Scott" },
-                    { 3, 3, 4, "Michael" },
-                    { 4, 2, 8, "Scooter" },
-                    { 5, 1, 13, "Roger" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Players",
-                columns: new[] { "PlayerId", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Myrtle" },
-                    { 2, "Darrel" },
-                    { 3, "Rita" },
-                    { 4, "Salvador" },
-                    { 5, "Virgil" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Teams",
-                columns: new[] { "TeamId", "Losses", "Name", "PlayerId", "Wins" },
-                values: new object[,]
-                {
-                    { 1, 0, "Militant Commandos", 1, 0 },
-                    { 2, 0, "Flash Rockets", 2, 0 },
-                    { 3, 0, "Silent Mutants", 3, 0 },
-                    { 4, 0, "Nunchuk Killers", 4, 0 },
-                    { 5, 0, "Alpha Blasters", 5, 0 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "AnimalTeams",
-                columns: new[] { "AnimalTeamId", "AnimalId", "TeamId" },
-                values: new object[,]
-                {
-                    { 1, 1, 1 },
-                    { 2, 2, 2 },
-                    { 3, 3, 3 },
-                    { 4, 4, 4 },
-                    { 5, 5, 5 }
+                    { 1, 5, 3, "https://cdn.discordapp.com/attachments/1008839085172981781/1008883732104626246/musclepikachu.png", "Pikachad" },
+                    { 2, 3, 6, "https://cdn.discordapp.com/attachments/1008839085172981781/1008930285691351131/MonionNoBgZoom.png", "Monion" },
+                    { 3, 3, 4, "https://cdn.discordapp.com/attachments/1008839085172981781/1009168139780624395/chickenyoshi.png", "Noshi" },
+                    { 4, 2, 8, "https://cdn.discordapp.com/attachments/1008839085172981781/1009185539242606743/beerbellybear.png", "Scooter" },
+                    { 5, 1, 13, "https://cdn.discordapp.com/attachments/1008839085172981781/1009201332357439619/peterpigeon.png", "Pigeon Pete" },
+                    { 6, 4, 2, "https://cdn.discordapp.com/attachments/927592064949026866/1008876043827937350/unknown.png", "Cheeso Dude" },
+                    { 7, 5, 4, "https://cdn.discordapp.com/attachments/927592064949026866/1008873198881869885/73371860-F5C2-4494-AC67-B3EA6111A5D6.jpg", "Cat With Sword" },
+                    { 8, 3, 3, "https://cdn.discordapp.com/attachments/927592064949026866/1009231673625428058/unknown.png", "Pepper Jackson" },
+                    { 9, 1, 5, "https://cdn.discordapp.com/attachments/1008839085172981781/1008892391442350141/monion.png", "Happy Monion" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -373,15 +366,18 @@ namespace TeamWeekAPI.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Teams_PlayerId",
-                table: "Teams",
-                column: "PlayerId");
+                name: "IX_RefreshTokens_UserId",
+                table: "RefreshTokens",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "AnimalTeams");
+
+            migrationBuilder.DropTable(
+                name: "AppUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -399,6 +395,9 @@ namespace TeamWeekAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "RefreshTokens");
+
+            migrationBuilder.DropTable(
                 name: "Animals");
 
             migrationBuilder.DropTable(
@@ -409,9 +408,6 @@ namespace TeamWeekAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Players");
         }
     }
 }
