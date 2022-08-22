@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamWeekAPI.Models;
 
@@ -10,9 +11,10 @@ using TeamWeekAPI.Models;
 namespace TeamWeekAPI.Migrations
 {
     [DbContext(typeof(TeamWeekAPIContext))]
-    partial class TeamWeekAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20220822162358_AddApplicationUser")]
+    partial class AddApplicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -391,13 +393,13 @@ namespace TeamWeekAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Losses")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("UserId")
                         .HasColumnType("longtext");
 
                     b.Property<int>("Wins")

@@ -1,11 +1,18 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using TeamWeekAPI.Models;
 using System.Linq;
+using Microsoft.AspNet.Identity;
+using System.Security.Claims;
+
+
+
+
 
 namespace TeamWeekAPI.Controllers
 {
@@ -16,7 +23,7 @@ namespace TeamWeekAPI.Controllers
   {
     private readonly TeamWeekAPIContext _db;
 
-    public TeamsController(TeamWeekAPIContext db)
+    public TeamsController( TeamWeekAPIContext db) 
     {
       _db = db;
     }
@@ -41,6 +48,8 @@ namespace TeamWeekAPI.Controllers
     [HttpPost]
     public async Task<ActionResult<Team>> Post(Team team)
     {
+      team.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+      // team.UserId = User.Identity.GetUserId();
       _db.Teams.Add(team);
       await _db.SaveChangesAsync();
 
