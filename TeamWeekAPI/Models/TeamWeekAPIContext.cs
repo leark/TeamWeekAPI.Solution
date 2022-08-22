@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
+
 namespace TeamWeekAPI.Models
 {
   public class TeamWeekAPIContext : IdentityDbContext
@@ -11,7 +12,7 @@ namespace TeamWeekAPI.Models
     }
 
     public DbSet<Animal> Animals { get; set; }
-    public DbSet<Player> Players { get; set; }
+    public DbSet<AppUser> AppUsers { get; set; }
     public DbSet<Team> Teams { get; set; }
     public DbSet<AnimalTeam> AnimalTeams { get; set; }
     public virtual DbSet<RefreshToken> RefreshTokens { get; set; }

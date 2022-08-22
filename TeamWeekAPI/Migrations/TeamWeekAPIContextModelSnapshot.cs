@@ -336,9 +336,9 @@ namespace TeamWeekAPI.Migrations
                     b.ToTable("AnimalTeams");
                 });
 
-            modelBuilder.Entity("TeamWeekAPI.Models.Player", b =>
+            modelBuilder.Entity("TeamWeekAPI.Models.AppUser", b =>
                 {
-                    b.Property<int>("PlayerId")
+                    b.Property<int>("AppUserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -346,9 +346,9 @@ namespace TeamWeekAPI.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("PlayerId");
+                    b.HasKey("AppUserId");
 
-                    b.ToTable("Players");
+                    b.ToTable("AppUsers");
                 });
 
             modelBuilder.Entity("TeamWeekAPI.Models.RefreshToken", b =>
@@ -395,18 +395,15 @@ namespace TeamWeekAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Wins")
                         .HasColumnType("int");
 
                     b.HasKey("TeamId");
-
-                    b.HasIndex("PlayerId");
 
                     b.ToTable("Teams");
                 });
@@ -488,17 +485,6 @@ namespace TeamWeekAPI.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TeamWeekAPI.Models.Team", b =>
-                {
-                    b.HasOne("TeamWeekAPI.Models.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Player");
                 });
 #pragma warning restore 612, 618
         }

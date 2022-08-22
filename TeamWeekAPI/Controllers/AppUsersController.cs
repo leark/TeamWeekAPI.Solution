@@ -12,19 +12,19 @@ namespace TeamWeekAPI.Controllers
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   [Route("api/[controller]")]
   [ApiController]
-  public class PlayersController : ControllerBase
+  public class AppUsersController : ControllerBase
   {
     private readonly TeamWeekAPIContext _db;
 
-    public PlayersController(TeamWeekAPIContext db)
+    public AppUsersController(TeamWeekAPIContext db)
     {
       _db = db;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Player>>> Get(string name)
+    public async Task<ActionResult<IEnumerable<AppUser>>> Get(string name)
     {
-      var query = _db.Players.AsQueryable();
+      var query = _db.AppUsers.AsQueryable();
 
       if (name != null)
       {
@@ -35,35 +35,35 @@ namespace TeamWeekAPI.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult<Player>> Post(Player player)
+    public async Task<ActionResult<AppUser>> Post(AppUser appUser)
     {
-      _db.Players.Add(player);
+      _db.AppUsers.Add(appUser);
       await _db.SaveChangesAsync();
-      return CreatedAtAction(nameof(GetPlayer), new { id = player.PlayerId }, player);
+      return CreatedAtAction(nameof(GetAppUser), new { id = appUser.AppUserId }, appUser);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Player>> GetPlayer(int id)
+    public async Task<ActionResult<AppUser>> GetAppUser(int id)
     {
-      var player = await _db.Players.FindAsync(id);
+      var appUser = await _db.AppUsers.FindAsync(id);
 
-      if (player == null)
+      if (appUser == null)
       {
         return NotFound();
       }
 
-      return player;
+      return appUser;
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, Player player)
+    public async Task<IActionResult> Put(int id, AppUser appUser)
     {
-      if (id != player.PlayerId)
+      if (id != appUser.AppUserId)
       {
         return BadRequest();
       }
 
-      _db.Entry(player).State = EntityState.Modified;
+      _db.Entry(appUser).State = EntityState.Modified;
 
       try
       {
@@ -71,7 +71,7 @@ namespace TeamWeekAPI.Controllers
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!PlayerExists(id))
+        if (!AppUserExists(id))
         {
           return NotFound();
         }
@@ -86,23 +86,23 @@ namespace TeamWeekAPI.Controllers
 
     // DELETE: api/Animals/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeletePlayer(int id)
+    public async Task<IActionResult> DeleteAppUser(int id)
     {
-      var player = await _db.Players.FindAsync(id);
-      if (player == null)
+      var appUser = await _db.AppUsers.FindAsync(id);
+      if (appUser == null)
       {
         return NotFound();
       }
 
-      _db.Players.Remove(player);
+      _db.AppUsers.Remove(appUser);
       await _db.SaveChangesAsync();
 
       return NoContent();
     }
 
-    private bool PlayerExists(int id)
+    private bool AppUserExists(int id)
     {
-      return _db.Players.Any(p => p.PlayerId == id);
+      return _db.AppUsers.Any(p => p.AppUserId == id);
     }
   }
 }
