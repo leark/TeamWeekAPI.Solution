@@ -127,6 +127,7 @@ This program was built using _`Microsoft .NET SDK 6.0.4`_, and may not be compat
 
 *Auth is minimum role required to use the endpoint
 #### Example Query
+Example uses hosted API so if building on own machine, replace ```https://slagapi.azurewebsites.net/``` with ```https://localhost:5000/```
 ```
 https://slagapi.azurewebsites.net/api/animals/1
 ```
@@ -162,4 +163,4 @@ Sample Request
 
 [GNU](/LICENSE)
 
-Copyright (c) 2022 Seung Lee, Garrett Hays, Alex Shevlin
+Copyright (c) 2022 Seung Lee, Garrett Hays, Alex Shevlin, Matt Herbert
