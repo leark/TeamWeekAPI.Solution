@@ -110,13 +110,20 @@ This program was built using _`Microsoft .NET SDK 6.0.4`_, and may not be compat
 | DELETE | /api/Animals/{id} | Admin | Deletes an animal with animalId = {id}  |
 
 #### Teams
-| HTTP   | EndPoints       | Auth   | Description                        |
-| ------ | --------------- | ------ | ---------------------------------- |
-| GET    | /api/Teams      | Admin  | Gets all teams in the database.    |
-| POST   | /api/Teams      | Player | Adds a team to the database        |
-| GET    | /api/Teams/{id} | Player | Gets a team with teamId = {id}     |
-| PUT    | /api/Teams/{id} | Player | Updates a team with teamId = {id}  |
-| DELETE | /api/Teams/{id} | Player | Deletes a team with teamId = {id}  |
+| HTTP   | EndPoints                | Auth   | Description                                                          |
+| ------ | ------------------------ | ------ | -------------------------------------------------------------------- |
+| GET    | /api/Teams               | Admin  | Gets all teams in the database.                                      |
+| POST   | /api/Teams               | Player | Adds a team to the database                                          |
+| GET    | /api/Teams/{id}          | Player | Gets a team with teamId = {id}                                       |
+| PUT    | /api/Teams/{id}          | Player | Updates a team with teamId = {id}                                    |
+| DELETE | /api/Teams/{id}          | Player | Deletes a team with teamId = {id}                                    |
+| POST   | /api/Teams/{tId}/{aId}   | Player | Adds an animal with animalId to team with teamId                     |
+| PUT    | /api/Teams/{tId}/{atId}  | Player | Updates an animalTeam with teamId = {tId} and animalTeamId = {atId}  |
+
+#### AnimalTeams
+| HTTP   | EndPoints                  | Auth   | Description                                     |
+| ------ | ---------------------------| ------ | ----------------------------------------------- |
+| DELETE | /api/AnimalTeams/{id}      | Player | Deletes an animalTeam with animalTeamId = {id}  |
 
 #### AuthManagement
 | HTTP   | EndPoints         | Auth   | Description                        |
