@@ -26,6 +26,15 @@ namespace TeamWeekAPI.Controllers
       _db = db;
     }
 
+    [HttpGet("{teamId}")]
+    public async Task<ActionResult<IEnumerable<AnimalTeam>>> GetAnimalTeams(int teamId)
+    {
+      var query = _db.AnimalTeams.AsQueryable();
+      query = query.Where(q => q.TeamId == teamId);
+
+      return await query.ToListAsync();
+    }
+
     // DELETE: api/AnimalTeams/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAnimalTeam(int id)
