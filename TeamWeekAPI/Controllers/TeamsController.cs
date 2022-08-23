@@ -111,6 +111,61 @@ namespace TeamWeekAPI.Controllers
       return NoContent();
     }
 
+    // POST: api/Teams/5/3
+    [HttpPost("{teamId}/{animalId}")]
+    public async Task<IActionResult> Post(int teamId, int animalId)
+    {
+      if (TeamExists(teamId) && AnimalExists(animalId))
+      {
+        AnimalTeam at = new AnimalTeam();
+        at.TeamId = teamId;
+        at.AnimalId = animalId;
+        _db.AnimalTeams.Add(at);
+        await _db.SaveChangesAsync();
+        return Ok(await findAnimalTeam(teamId, animalId));
+      }
+      else
+      {
+        return NotFound();
+      }
+    }
+
+    // PUT: api/Teams/3/2/4
+    [HttpPut("{teamId}/{oldAnimalId}/{newAnimalId}")]
+    public async Task<IActionResult> Put(int teamId, int oldAnimalId, int newAnimalId)
+    {
+      AnimalTeam at = await findAnimalTeam(teamId, oldAnimalId);
+      if (at == null)
+      {
+        return BadRequest();
+      }
+      else
+      {
+        at.AnimalId = newAnimalId;
+      }
+
+      _db.Entry(at).State = EntityState.Modified;
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!_db.AnimalTeams.Any(e => e.AnimalTeamId == at.AnimalTeamId))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
+    }
+
+    // GET: api/Teams/battle/3
     [HttpGet("battle/{id}")]
     [AllowAnonymous]
     public IActionResult BattleTeam(int id)
@@ -146,6 +201,16 @@ namespace TeamWeekAPI.Controllers
     private bool TeamExists(int id)
     {
       return _db.Teams.Any(e => e.TeamId == id);
+    }
+
+    private bool AnimalExists(int id)
+    {
+      return _db.Animals.Any(e => e.AnimalId == id);
+    }
+
+    private async Task<AnimalTeam> findAnimalTeam(int teamId, int animalId)
+    {
+      return await _db.AnimalTeams.FirstOrDefaultAsync(a => a.TeamId == teamId && a.AnimalId == animalId);
     }
 
     private Object Battle(Team team, Team enemyTeam)
