@@ -123,6 +123,7 @@ This program was built using _`Microsoft .NET SDK 6.0.4`_, and may not be compat
 #### AnimalTeams
 | HTTP   | EndPoints                  | Auth   | Description                                     |
 | ------ | ---------------------------| ------ | ----------------------------------------------- |
+| GET    | /api/AnimalTeams/{teamId}  | Player | Gets all AnimalTeam with teamId = {teamId}      |
 | DELETE | /api/AnimalTeams/{id}      | Player | Deletes an animalTeam with animalTeamId = {id}  |
 
 #### AuthManagement
