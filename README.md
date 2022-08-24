@@ -118,6 +118,7 @@ This program was built using _`Microsoft .NET SDK 6.0.4`_, and may not be compat
 | PUT    | /api/Teams/{id}          | Player | Updates a team with teamId = {id}                                    |
 | DELETE | /api/Teams/{id}          | Player | Deletes a team with teamId = {id}                                    |
 | POST   | /api/Teams/{tId}/{aId}   | Player | Adds an animal with animalId to team with teamId                     |
+| DELETE | /api/Teams/{tId}/{aId}   | Player | Removes an animal with animalId from team with teamId                |
 | PUT    | /api/Teams/{tId}/{atId}  | Player | Updates an animalTeam with teamId = {tId} and animalTeamId = {atId}  |
 | GET    | /api/Teams/battle/{tId}  | Player | Gets result of random battle team with teamId = {tId} performed      |
 | GET    | /api/Teams/TeamAnimals/{tId} | Player | Gets all the animals in team with teamId = {tId}                 |
