@@ -79,10 +79,10 @@ namespace TeamWeekAPI.Controllers
 
     // GET: api/Teams/Player/5
     [HttpGet("Player/{uId}")]
-    public async Task<ActionResult<IEnumerable<Team>>> GetPlayerAllTeams(string uId)
+    public async Task<ActionResult<IEnumerable<Team>>> GetAllUserTeams(string uId)
     {
       var query = _db.Teams.AsQueryable();
-      query.Where(team => team.UserId == uId);
+      query = query.Where(team => team.UserId == uId);
       return await query.ToListAsync();
     }
 
