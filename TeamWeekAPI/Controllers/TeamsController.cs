@@ -77,6 +77,15 @@ namespace TeamWeekAPI.Controllers
       return Ok(animals);
     }
 
+    // GET: api/Teams/Player/5
+    [HttpGet("Player/{uId}")]
+    public async Task<ActionResult<IEnumerable<Team>>> GetPlayerAllTeams(string uId)
+    {
+      var query = _db.Teams.AsQueryable();
+      query.Where(team => team.UserId == uId);
+      return await query.ToListAsync();
+    }
+
     // PUT: api/Teams/5
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, Team team)

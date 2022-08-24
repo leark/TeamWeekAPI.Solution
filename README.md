@@ -120,7 +120,8 @@ This program was built using _`Microsoft .NET SDK 6.0.4`_, and may not be compat
 | POST   | /api/Teams/{tId}/{aId}   | Player | Adds an animal with animalId to team with teamId                     |
 | PUT    | /api/Teams/{tId}/{atId}  | Player | Updates an animalTeam with teamId = {tId} and animalTeamId = {atId}  |
 | GET    | /api/Teams/battle/{tId}  | Player | Gets result of random battle team with teamId = {tId} performed      |
-| GET    | /api/TeamAnimals/{tId}   | Player | Gets all the animals in team with teamId = {tId}                     |
+| GET    | /api/Teams/TeamAnimals/{tId} | Player | Gets all the animals in team with teamId = {tId}                 |
+| GET    | /api/Teams/Player/{uId}  | Player | Gets all the teams by user with userId = {uId}                       |
 
 #### AnimalTeams
 | HTTP   | EndPoints                  | Auth   | Description                                     |
