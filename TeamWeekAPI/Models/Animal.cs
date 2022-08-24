@@ -16,5 +16,19 @@ namespace TeamWeekAPI.Models
     [Required]
     [Range(1, 9)]
     public int Attack { get; set; }
+
+    public Animal() { }
+    public Animal(int id, string image, string name, int hp, int attack)
+    {
+      AnimalId = id;
+      Image = image;
+      Name = name;
+      HP = hp;
+      Attack = attack;
+    }
+    public static Animal Clone(Animal animal)
+    {
+      return new Animal(animal.AnimalId, animal.Image, animal.Name, animal.HP, animal.Attack);
+    }
   }
 }
