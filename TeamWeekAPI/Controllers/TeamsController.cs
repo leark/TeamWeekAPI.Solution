@@ -219,6 +219,14 @@ namespace TeamWeekAPI.Controllers
       }
     }
 
+    [HttpDelete("/{tId}/{aId}")]
+    public async void DeleteAnimalFromTeam(int tId, int aId)
+    {
+      AnimalTeam at = await findAnimalTeam(tId, aId);
+      _db.AnimalTeams.Remove(at);
+      await _db.SaveChangesAsync();
+    }
+
     private bool TeamExists(int id)
     {
       return _db.Teams.Any(e => e.TeamId == id);
