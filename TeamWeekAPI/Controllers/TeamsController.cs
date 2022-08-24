@@ -267,13 +267,13 @@ namespace TeamWeekAPI.Controllers
         {
           id = team.TeamId,
           name = team.Name,
-          animals = t1
+          animals = animals
         },
         team2 = new
         {
           id = enemyTeam.TeamId,
           name = enemyTeam.Name,
-          animals = t2
+          animals = enemyAnimals
         }
       };
 
