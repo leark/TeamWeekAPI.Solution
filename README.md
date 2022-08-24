@@ -119,6 +119,8 @@ This program was built using _`Microsoft .NET SDK 6.0.4`_, and may not be compat
 | DELETE | /api/Teams/{id}          | Player | Deletes a team with teamId = {id}                                    |
 | POST   | /api/Teams/{tId}/{aId}   | Player | Adds an animal with animalId to team with teamId                     |
 | PUT    | /api/Teams/{tId}/{atId}  | Player | Updates an animalTeam with teamId = {tId} and animalTeamId = {atId}  |
+| GET    | /api/Teams/battle/{tId}  | Player | Gets result of random battle team with teamId = {tId} performed      |
+| GET    | /api/TeamAnimals/{tId}   | Player | Gets all the animals in team with teamId = {tId}                     |
 
 #### AnimalTeams
 | HTTP   | EndPoints                  | Auth   | Description                                     |

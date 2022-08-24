@@ -65,6 +65,18 @@ namespace TeamWeekAPI.Controllers
       return team;
     }
 
+    // GET: api/Teams/TeamAnimals/5
+    [HttpGet("TeamAnimals/{id}")]
+    public async Task<ActionResult<IEnumerable<Animal>>> GetTeamAnimals(int id)
+    {
+      List<Animal> animals = await _db.Animals.FromSqlRaw($"SELECT a.AnimalId, a.Image, a.Name, a.HP, a.Attack FROM animals a JOIN animalteams ateams ON ateams.AnimalId = a.AnimalId AND ateams.TeamId = {id};").ToListAsync();
+      if (animals == null)
+      {
+        return NotFound();
+      }
+      return Ok(animals);
+    }
+
     // PUT: api/Teams/5
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, Team team)
@@ -167,7 +179,6 @@ namespace TeamWeekAPI.Controllers
 
     // GET: api/Teams/battle/3
     [HttpGet("battle/{id}")]
-    [AllowAnonymous]
     public IActionResult BattleTeam(int id)
     {
       if (TeamExists(id))
@@ -185,7 +196,8 @@ namespace TeamWeekAPI.Controllers
             randTeam = rand.Next(numTeams);
             enemyTeam = teams[randTeam];
           }
-
+          // team.Name;
+          // enemyTeam.Name;
           Object json = Battle(team, enemyTeam);
           // return winning team & losing team comp
           return Ok(json);
@@ -238,25 +250,31 @@ namespace TeamWeekAPI.Controllers
         }
       }
 
-      string result = "";
-      if (t1a == null && t2a == null)
+      int result = 0;
+      if (t1a != null && t2a == null)
       {
-        result = "tie";
+        result = 1;
       }
-      else if (t2a == null)
+      else if (t1a == null && t2a != null)
       {
-        result = "1";
-      }
-      else
-      {
-        result = "2";
+        result = 2;
       }
 
       Object json = new
       {
         outcome = result,
-        team1 = animals,
-        team2 = enemyAnimals
+        team1 = new
+        {
+          id = team.TeamId,
+          name = team.Name,
+          animals = t1
+        },
+        team2 = new
+        {
+          id = enemyTeam.TeamId,
+          name = enemyTeam.Name,
+          animals = t2
+        }
       };
 
       return json;
