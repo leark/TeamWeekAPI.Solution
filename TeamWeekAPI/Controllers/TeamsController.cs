@@ -237,10 +237,10 @@ namespace TeamWeekAPI.Controllers
     private Object Battle(Team team, Team enemyTeam)
     {
       List<Animal> animals = _db.Animals.FromSqlRaw($"SELECT a.AnimalId, a.Image, a.Name, a.HP, a.Attack FROM animals a JOIN animalteams ateams ON ateams.AnimalId = a.AnimalId AND ateams.TeamId = {team.TeamId};").ToList();
-      Stack<Animal> t1 = new Stack<Animal>(animals);
+      Stack<Animal> t1 = new Stack<Animal>(animals.Select(a => Animal.Clone(a)).ToList());
 
       List<Animal> enemyAnimals = _db.Animals.FromSqlRaw($"SELECT a.AnimalId, a.Image, a.Name, a.HP, a.Attack FROM animals a JOIN animalteams ateams ON ateams.AnimalId = a.AnimalId AND ateams.TeamId = {enemyTeam.TeamId};").ToList();
-      Stack<Animal> t2 = new Stack<Animal>(enemyAnimals);
+      Stack<Animal> t2 = new Stack<Animal>(enemyAnimals.Select(a => Animal.Clone(a)).ToList());
 
       Animal t1a = new Animal();
       Animal t2a = new Animal();
