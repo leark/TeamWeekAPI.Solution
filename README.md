@@ -131,11 +131,11 @@ This program was built using _`Microsoft .NET SDK 6.0.4`_, and may not be compat
 | DELETE | /api/AnimalTeams/{id}      | Player | Deletes an animalTeam with animalTeamId = {id}  |
 
 #### AuthManagement
-| HTTP   | EndPoints         | Auth   | Description                        |
-| ------ | ----------------- | ------ | ---------------------------------- |
-| POST   | /api/Register     | Player | Registers a player.                |
-| POST   | /api/Login        | Player | Login as a player.                 |
-| POST   | /api/RefreshToken | Player | Get new Token and RefreshToken     |
+| HTTP   | EndPoints                        | Auth   | Description                        |
+| ------ | -------------------------------- | ------ | ---------------------------------- |
+| POST   | /api/Authmanagement/Register     | Player | Registers a player.                |
+| POST   | /api/Authmanagement/Login        | Player | Login as a player.                 |
+| POST   | /api/Authmanagement/RefreshToken | Player | Get new Token and RefreshToken     |
 
 *Auth is minimum role required to use the endpoint
 #### Example Query
