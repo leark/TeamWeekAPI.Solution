@@ -276,12 +276,19 @@ namespace TeamWeekAPI.Controllers
       int result = 0;
       if (t1a != null && t2a == null)
       {
+        team.Wins++;
+        enemyTeam.Losses++;
         result = 1;
       }
       else if (t1a == null && t2a != null)
       {
+        team.Losses++;
+        enemyTeam.Wins++;
         result = 2;
       }
+      _db.Entry(team).State = EntityState.Modified;
+      _db.Entry(enemyTeam).State = EntityState.Modified;
+      _db.SaveChanges();
 
       Object json = new
       {
