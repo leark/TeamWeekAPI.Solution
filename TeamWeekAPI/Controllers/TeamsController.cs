@@ -136,18 +136,25 @@ namespace TeamWeekAPI.Controllers
     [HttpPost("{teamId}/{animalId}")]
     public async Task<IActionResult> Post(int teamId, int animalId)
     {
-      if (TeamExists(teamId) && AnimalExists(animalId))
+      var query = _db.AnimalTeams.AsQueryable();
+      query = query.Where(q => q.TeamId == teamId);
+      List<AnimalTeam> ats = await query.ToListAsync();
+      if (ats != null && ats.Count < 3)
       {
-        AnimalTeam at = new AnimalTeam();
-        at.TeamId = teamId;
-        at.AnimalId = animalId;
-        _db.AnimalTeams.Add(at);
-        await _db.SaveChangesAsync();
-        return Ok(await findAnimalTeam(teamId, animalId));
+        if (AnimalExists(animalId))
+        {
+          AnimalTeam at = new AnimalTeam();
+          at.TeamId = teamId;
+          at.AnimalId = animalId;
+          _db.AnimalTeams.Add(at);
+          await _db.SaveChangesAsync();
+          return Ok(await findAnimalTeam(teamId, animalId));
+        }
+        return NotFound(new { title = "Not Found", status = 404, error = "Animal not found" });
       }
       else
       {
-        return NotFound();
+        return BadRequest(new { title = "Bad Request", status = 400, error = "Team size cannot exceed 3" });
       }
     }
 
@@ -276,12 +283,19 @@ namespace TeamWeekAPI.Controllers
       int result = 0;
       if (t1a != null && t2a == null)
       {
+        team.Wins++;
+        enemyTeam.Losses++;
         result = 1;
       }
       else if (t1a == null && t2a != null)
       {
+        team.Losses++;
+        enemyTeam.Wins++;
         result = 2;
       }
+      _db.Entry(team).State = EntityState.Modified;
+      _db.Entry(enemyTeam).State = EntityState.Modified;
+      _db.SaveChanges();
 
       Object json = new
       {
